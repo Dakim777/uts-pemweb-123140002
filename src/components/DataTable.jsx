@@ -1,5 +1,34 @@
 import React, { useState } from 'react';
 
+function PortfolioInput({ value, onChange }) {
+  const [inputValue, setInputValue] = useState(value || '');
+  const [isValid, setIsValid] = useState(true);
+
+  const handleChange = (e) => {
+    const val = e.target.value;
+    setInputValue(val);
+    // Only allow positive numbers and empty
+    if (val === '' || (/^\d*\.?\d*$/.test(val) && parseFloat(val) >= 0)) {
+      setIsValid(true);
+      onChange(val);
+    } else {
+      setIsValid(false);
+    }
+  };
+
+  return (
+    <input
+      type="number"
+      min="0"
+      step="0.01"
+      value={inputValue}
+      onChange={handleChange}
+      placeholder="0.00"
+      className={`portfolio-input${isValid ? '' : ' invalid'}`}
+    />
+  );
+}
+
 const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, onClearPortfolio }) => {
   const [sortConfig, setSortConfig] = useState({ key: 'market_cap_rank', direction: 'asc' });
 
@@ -122,21 +151,19 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
                   <td className="marketcap-cell">{formatLargeNumber(crypto.market_cap)}</td>
 
                   <td className="portfolio-cell">
-                    <input
-                      type="number"
-                      min="0"
-                      step="0.01"
-                      value={portfolioAmount || ''}
-                      onChange={(e) => onUpdatePortfolio(crypto.id, e.target.value)}
-                      placeholder="0.00"
-                      className="portfolio-input"
-                    />
-                    {portfolioAmount > 0 && (
-                      <div className="portfolio-value">
-                        = {formatCurrency(portfolioValue)}
-                      </div>
-                    )}
+                    <div className="portfolio-flex">
+                      <PortfolioInput
+                        value={portfolioAmount}
+                        onChange={val => onUpdatePortfolio(crypto.id, val)}
+                      />
+                      {portfolioAmount > 0 && (
+                        <div className="portfolio-value">
+                          = {formatCurrency(portfolioValue)}
+                        </div>
+                      )}
+                    </div>
                   </td>
+
 
                   <td className="action-cell">
                     <button
