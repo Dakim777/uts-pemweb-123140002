@@ -37,12 +37,19 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
   const portfolioValue = portfolioAmount * crypto.market_data.current_price.usd;
 
   return (
-    <div className="detail-overlay">
+    <div
+      className="detail-overlay"
+      onClick={e => {
+        // Only close if clicking the overlay, not the modal itself
+        if (e.target.classList.contains('detail-overlay')) {
+          onClose();
+        }
+      }}
+    >
       <div className="detail-modal">
         {/* === Close Button === */}
         <button onClick={onClose} className="close-button" title="Close">✕</button>
-
-        {/* === Header === */}
+        {/* ...existing code... */}
         <div className="detail-header">
           <img src={crypto.image.large} alt={crypto.name} className="detail-coin-image" />
           <div className="detail-title">
@@ -51,7 +58,7 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
             <span className="detail-rank">Rank #{crypto.market_cap_rank}</span>
           </div>
         </div>
-
+        {/* ...existing code... */}
         {/* === Price Section === */}
         <div className="price-section">
           <div className="current-price">
@@ -65,7 +72,7 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
             {Math.abs(crypto.market_data.price_change_percentage_24h).toFixed(2)}% (24h)
           </div>
         </div>
-
+        {/* ...existing code... */}
         {/* === Chart Section === */}
         <div className="chart-section">
           <h3>📈 Price Chart (7 Days)</h3>
@@ -104,7 +111,7 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
             </ResponsiveContainer>
           </div>
         </div>
-
+        {/* ...existing code... */}
         {/* === Market Stats Section === */}
         <div className="market-stats">
           <h3>📊 Market Statistics</h3>
@@ -141,7 +148,7 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
             </div>
           </div>
         </div>
-
+        {/* ...existing code... */}
         {/* === Portfolio Calculator === */}
         <div className="portfolio-calculator">
           <h3>💼 Portfolio Calculator</h3>
@@ -173,7 +180,7 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
             )}
           </div>
         </div>
-
+        {/* ...existing code... */}
         {/* === Description Section === */}
         {crypto.description?.en && (
           <div className="description-section">
@@ -186,7 +193,7 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
             />
           </div>
         )}
-
+        {/* ...existing code... */}
         {/* === Links Section === */}
         <div className="links-section">
           <h3>🔗 Links</h3>

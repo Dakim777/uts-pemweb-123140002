@@ -43,7 +43,13 @@ const App = () => {
       setCryptoData(data);
       setFilteredData(data);
     } catch (err) {
-      setError(err.message || 'Terjadi kesalahan saat mengambil data');
+      let errorMsg = 'Terjadi kesalahan saat mengambil data';
+      if (err && err.message) {
+        errorMsg = err.message;
+      } else if (err && typeof err === 'string') {
+        errorMsg = err;
+      }
+      setError(errorMsg + '\nCoba periksa koneksi internet atau coba beberapa saat lagi.');
       setCryptoData([]);
       setFilteredData([]);
     } finally {
@@ -89,7 +95,13 @@ const App = () => {
         chartData: chartData.prices
       });
     } catch (err) {
-      setError('Gagal mengambil detail cryptocurrency');
+      let errorMsg = 'Gagal mengambil detail cryptocurrency';
+      if (err && err.message) {
+        errorMsg = err.message;
+      } else if (err && typeof err === 'string') {
+        errorMsg = err;
+      }
+      setError(errorMsg + '\nCoba periksa koneksi internet atau coba beberapa saat lagi.');
     } finally {
       setLoading(false);
     }
