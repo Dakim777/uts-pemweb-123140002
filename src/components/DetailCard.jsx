@@ -4,7 +4,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
   const [portfolioAmount, setPortfolioAmount] = useState(portfolio[crypto.id] || 0);
 
-  // Format currency
+  // === Format Currency ===
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -14,7 +14,7 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
     }).format(value);
   };
 
-  // Format large numbers
+  // === Format Large Numbers ===
   const formatLargeNumber = (value) => {
     if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
     if (value >= 1e9) return `$${(value / 1e9).toFixed(2)}B`;
@@ -22,13 +22,13 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
     return formatCurrency(value);
   };
 
-  // Prepare chart data
+  // === Chart Data ===
   const chartData = crypto.chartData?.map(([timestamp, price]) => ({
     date: new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
     price: price
   })) || [];
 
-  // Handle portfolio update
+  // === Portfolio Handler ===
   const handlePortfolioChange = (value) => {
     setPortfolioAmount(value);
     onUpdatePortfolio(crypto.id, value);
@@ -39,8 +39,10 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
   return (
     <div className="detail-overlay">
       <div className="detail-modal">
-        <button onClick={onClose} className="close-button">✕</button>
-        
+        {/* === Close Button === */}
+        <button onClick={onClose} className="close-button" title="Close">✕</button>
+
+        {/* === Header === */}
         <div className="detail-header">
           <img src={crypto.image.large} alt={crypto.name} className="detail-coin-image" />
           <div className="detail-title">
@@ -50,52 +52,60 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
           </div>
         </div>
 
+        {/* === Price Section === */}
         <div className="price-section">
           <div className="current-price">
             <span className="price-label">Current Price</span>
-            <span className="price-value">{formatCurrency(crypto.market_data.current_price.usd)}</span>
+            <span className="price-value">
+              {formatCurrency(crypto.market_data.current_price.usd)}
+            </span>
           </div>
           <div className={`price-change ${crypto.market_data.price_change_percentage_24h >= 0 ? 'positive' : 'negative'}`}>
-            {crypto.market_data.price_change_percentage_24h >= 0 ? '▲' : '▼'} 
+            {crypto.market_data.price_change_percentage_24h >= 0 ? '▲' : '▼'}{' '}
             {Math.abs(crypto.market_data.price_change_percentage_24h).toFixed(2)}% (24h)
           </div>
         </div>
 
+        {/* === Chart Section === */}
         <div className="chart-section">
           <h3>📈 Price Chart (7 Days)</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
-              <XAxis 
-                dataKey="date" 
-                stroke="#cbd5e1"
-                style={{ fontSize: '12px' }}
-              />
-              <YAxis 
-                stroke="#cbd5e1"
-                style={{ fontSize: '12px' }}
-                tickFormatter={(value) => `$${value.toFixed(0)}`}
-              />
-              <Tooltip 
-                contentStyle={{ 
-                  backgroundColor: '#1e293b', 
-                  border: '1px solid #475569',
-                  borderRadius: '8px',
-                  color: '#f1f5f9'
-                }}
-                formatter={(value) => [formatCurrency(value), 'Price']}
-              />
-              <Line 
-                type="monotone" 
-                dataKey="price" 
-                stroke="#3b82f6" 
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          <div className="chart-container">
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                <XAxis 
+                  dataKey="date" 
+                  stroke="#cbd5e1"
+                  style={{ fontSize: '12px' }}
+                />
+                <YAxis 
+                  stroke="#cbd5e1"
+                  style={{ fontSize: '12px' }}
+                  tickFormatter={(value) => `$${value.toFixed(0)}`}
+                />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: '#0f172a', 
+                    border: '1px solid #334155',
+                    borderRadius: '8px',
+                    color: '#f1f5f9'
+                  }}
+                  formatter={(value) => [formatCurrency(value), 'Price']}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="price" 
+                  stroke="#3b82f6" 
+                  strokeWidth={2.5}
+                  dot={false}
+                  activeDot={{ r: 4 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
+        {/* === Market Stats Section === */}
         <div className="market-stats">
           <h3>📊 Market Statistics</h3>
           <div className="stats-grid">
@@ -132,6 +142,7 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
           </div>
         </div>
 
+        {/* === Portfolio Calculator === */}
         <div className="portfolio-calculator">
           <h3>💼 Portfolio Calculator</h3>
           <div className="calculator-content">
@@ -163,6 +174,7 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
           </div>
         </div>
 
+        {/* === Description Section === */}
         {crypto.description?.en && (
           <div className="description-section">
             <h3>📝 About {crypto.name}</h3>
@@ -175,6 +187,7 @@ const DetailCard = ({ crypto, onClose, portfolio, onUpdatePortfolio }) => {
           </div>
         )}
 
+        {/* === Links Section === */}
         <div className="links-section">
           <h3>🔗 Links</h3>
           <div className="links-grid">

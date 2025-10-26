@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, onClearPortfolio }) => {
   const [sortConfig, setSortConfig] = useState({ key: 'market_cap_rank', direction: 'asc' });
 
-  // Format currency
+  // === Currency Formatter ===
   const formatCurrency = (value) => {
     if (value >= 1) {
       return new Intl.NumberFormat('en-US', {
@@ -21,7 +21,7 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
     }).format(value);
   };
 
-  // Format large numbers
+  // === Large Number Formatter ===
   const formatLargeNumber = (value) => {
     if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
     if (value >= 1e9) return `$${(value / 1e9).toFixed(2)}B`;
@@ -29,7 +29,7 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
     return formatCurrency(value);
   };
 
-  // Sort data
+  // === Sorting Logic ===
   const sortData = (key) => {
     let direction = 'asc';
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
@@ -42,7 +42,6 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
     const sorted = [...cryptoData].sort((a, b) => {
       const aVal = a[sortConfig.key];
       const bVal = b[sortConfig.key];
-      
       if (aVal < bVal) return sortConfig.direction === 'asc' ? -1 : 1;
       if (aVal > bVal) return sortConfig.direction === 'asc' ? 1 : -1;
       return 0;
@@ -52,7 +51,7 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
 
   const sortedData = getSortedData();
 
-  // Calculate total portfolio value
+  // === Portfolio Calculations ===
   const totalPortfolio = sortedData.reduce((total, crypto) => {
     const amount = portfolio[crypto.id] || 0;
     return total + (crypto.current_price * amount);
@@ -61,7 +60,8 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
   const hasPortfolio = Object.values(portfolio).some(amount => amount > 0);
 
   return (
-    <div className="data-section">
+    <section className="data-section">
+      {/* === Section Header === */}
       <div className="section-header">
         <h2>📊 Cryptocurrency Market</h2>
         {hasPortfolio && (
@@ -71,6 +71,7 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
         )}
       </div>
 
+      {/* === Table Wrapper === */}
       <div className="table-wrapper">
         <table className="crypto-table">
           <thead>
@@ -92,11 +93,12 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
               <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
             {sortedData.map((crypto) => {
               const portfolioAmount = portfolio[crypto.id] || 0;
               const portfolioValue = portfolioAmount * crypto.current_price;
-              
+
               return (
                 <tr key={crypto.id} className="crypto-row">
                   <td className="rank-cell">{crypto.market_cap_rank}</td>
@@ -109,12 +111,16 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
                       </div>
                     </div>
                   </td>
+
                   <td className="price-cell">{formatCurrency(crypto.current_price)}</td>
+
                   <td className={`change-cell ${crypto.price_change_percentage_24h >= 0 ? 'positive' : 'negative'}`}>
-                    {crypto.price_change_percentage_24h >= 0 ? '▲' : '▼'} 
+                    {crypto.price_change_percentage_24h >= 0 ? '▲' : '▼'}{' '}
                     {Math.abs(crypto.price_change_percentage_24h).toFixed(2)}%
                   </td>
+
                   <td className="marketcap-cell">{formatLargeNumber(crypto.market_cap)}</td>
+
                   <td className="portfolio-cell">
                     <input
                       type="number"
@@ -131,6 +137,7 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
                       </div>
                     )}
                   </td>
+
                   <td className="action-cell">
                     <button
                       onClick={() => onSelectCrypto(crypto.id)}
@@ -146,6 +153,7 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
         </table>
       </div>
 
+      {/* === Portfolio Summary === */}
       {hasPortfolio && (
         <div className="portfolio-summary">
           <h3>💼 Portfolio Summary</h3>
@@ -161,7 +169,7 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

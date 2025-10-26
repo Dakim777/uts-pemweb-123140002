@@ -23,7 +23,8 @@ const SearchForm = ({ onFilterByPrice, priceRange, resultCount, totalCount }) =>
   };
 
   return (
-    <div className="filter-section">
+    <section className="filter-section">
+      {/* === Header Section === */}
       <div className="filter-header">
         <h2>🔍 Filter Cryptocurrency</h2>
         <div className="result-info">
@@ -31,6 +32,7 @@ const SearchForm = ({ onFilterByPrice, priceRange, resultCount, totalCount }) =>
         </div>
       </div>
 
+      {/* === Filter Form === */}
       <form onSubmit={handleSubmit} className="filter-form">
         <div className="filter-inputs">
           <div className="input-group">
@@ -64,6 +66,7 @@ const SearchForm = ({ onFilterByPrice, priceRange, resultCount, totalCount }) =>
           </div>
         </div>
 
+        {/* === Action Buttons === */}
         <div className="filter-actions">
           <button type="submit" className="filter-button">
             💰 Filter
@@ -78,42 +81,18 @@ const SearchForm = ({ onFilterByPrice, priceRange, resultCount, totalCount }) =>
         </div>
       </form>
 
+      {/* === Quick Filter Presets === */}
       <div className="quick-filters">
         <p className="quick-filter-label">Quick Filters:</p>
         <div className="preset-buttons">
-          <button 
-            onClick={() => applyPreset('0', '1')}
-            className="preset-btn"
-          >
-            &lt; $1
-          </button>
-          <button 
-            onClick={() => applyPreset('1', '10')}
-            className="preset-btn"
-          >
-            $1 - $10
-          </button>
-          <button 
-            onClick={() => applyPreset('10', '100')}
-            className="preset-btn"
-          >
-            $10 - $100
-          </button>
-          <button 
-            onClick={() => applyPreset('100', '1000')}
-            className="preset-btn"
-          >
-            $100 - $1K
-          </button>
-          <button 
-            onClick={() => applyPreset('1000', '')}
-            className="preset-btn"
-          >
-            &gt; $1K
-          </button>
+          <button onClick={() => applyPreset('0', '1')} className="preset-btn">&lt; $1</button>
+          <button onClick={() => applyPreset('1', '10')} className="preset-btn">$1 - $10</button>
+          <button onClick={() => applyPreset('10', '100')} className="preset-btn">$10 - $100</button>
+          <button onClick={() => applyPreset('100', '1000')} className="preset-btn">$100 - $1K</button>
+          <button onClick={() => applyPreset('1000', '')} className="preset-btn">&gt; $1K</button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
