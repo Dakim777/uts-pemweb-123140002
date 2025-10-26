@@ -169,8 +169,10 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
                     <button
                       onClick={() => onSelectCrypto(crypto.id)}
                       className="detail-btn"
+                      title={`Lihat detail ${crypto.name}`}
                     >
-                      📈 Detail
+                      <span style={{fontSize: '1.2em', display: 'inline-block'}}>�</span>
+                      Detail
                     </button>
                   </td>
                 </tr>
