@@ -10,11 +10,41 @@ const App = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [selectedCrypto, setSelectedCrypto] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [detailLoading, setDetailLoading] = useState(false);
   const [error, setError] = useState('');
   const [priceRange, setPriceRange] = useState({ min: '', max: '' });
   const [portfolio, setPortfolio] = useState({});
 
   const BASE_URL = 'https://api.coingecko.com/api/v3';
+  const MAX_RETRIES = 3;
+  const RETRY_DELAY = 1000; // 1 second
+
+  // Utility function to delay execution
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+  // Fetch with retry logic
+  const fetchWithRetry = async (url, options = {}, retries = MAX_RETRIES) => {
+    try {
+      const response = await fetch(url, options);
+      
+      if (!response.ok) {
+        // Check if we hit rate limit
+        if (response.status === 429) {
+          throw new Error('Rate limit exceeded. Tunggu sebentar...');
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      if (retries > 0) {
+        await delay(RETRY_DELAY);
+        return fetchWithRetry(url, options, retries - 1);
+      }
+      throw error;
+    }
+  };
 
   // Load portfolio from localStorage on mount
   useEffect(() => {
@@ -31,25 +61,20 @@ const App = () => {
       setLoading(true);
       setError('');
 
-      const response = await fetch(
+      const data = await fetchWithRetry(
         `${BASE_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false&price_change_percentage=24h`
       );
 
-      if (!response.ok) {
-        throw new Error('Gagal mengambil data cryptocurrency');
-      }
-
-      const data = await response.json();
       setCryptoData(data);
       setFilteredData(data);
     } catch (err) {
       let errorMsg = 'Terjadi kesalahan saat mengambil data';
-      if (err && err.message) {
+      if (err.message.includes('Rate limit')) {
         errorMsg = err.message;
-      } else if (err && typeof err === 'string') {
-        errorMsg = err;
+      } else if (err && err.message) {
+        errorMsg = err.message;
       }
-      setError(errorMsg + '\nCoba periksa koneksi internet atau coba beberapa saat lagi.');
+      setError(errorMsg + '\nMencoba ulang dalam beberapa detik...');
       setCryptoData([]);
       setFilteredData([]);
     } finally {
@@ -79,16 +104,18 @@ const App = () => {
   // Handle crypto selection for detail view
   const handleSelectCrypto = async (cryptoId) => {
     try {
-      setLoading(true);
+      setDetailLoading(true);
+      setError('');
       
-      // Fetch detailed data
-      const [detailResponse, chartResponse] = await Promise.all([
-        fetch(`${BASE_URL}/coins/${cryptoId}`),
-        fetch(`${BASE_URL}/coins/${cryptoId}/market_chart?vs_currency=usd&days=7`)
+      // Fetch detailed data with retry
+      const [detailData, chartData] = await Promise.all([
+        fetchWithRetry(`${BASE_URL}/coins/${cryptoId}`),
+        fetchWithRetry(`${BASE_URL}/coins/${cryptoId}/market_chart?vs_currency=usd&days=7`)
       ]);
 
-      const detailData = await detailResponse.json();
-      const chartData = await chartResponse.json();
+      if (!detailData || !chartData?.prices) {
+        throw new Error('Data tidak lengkap dari API');
+      }
 
       setSelectedCrypto({
         ...detailData,
@@ -96,20 +123,23 @@ const App = () => {
       });
     } catch (err) {
       let errorMsg = 'Gagal mengambil detail cryptocurrency';
-      if (err && err.message) {
+      if (err.message.includes('Rate limit')) {
         errorMsg = err.message;
-      } else if (err && typeof err === 'string') {
-        errorMsg = err;
+      } else if (err && err.message) {
+        errorMsg = err.message;
       }
-      setError(errorMsg + '\nCoba periksa koneksi internet atau coba beberapa saat lagi.');
+      setError(errorMsg + '\nMencoba ulang dalam beberapa detik...');
+      setSelectedCrypto(null);
     } finally {
-      setLoading(false);
+      setDetailLoading(false);
     }
   };
 
   // Close detail view
   const handleCloseDetail = () => {
     setSelectedCrypto(null);
+    setDetailLoading(false);
+    setError('');
   };
 
   // Portfolio calculator
@@ -140,8 +170,38 @@ const App = () => {
     localStorage.removeItem('cryptoPortfolio');
   };
 
+  // Create animated particles
+  const createParticles = () => {
+    const particles = [];
+    for (let i = 0; i < 20; i++) {
+      const moveX = Math.random() * window.innerWidth - 100;
+      const moveY = Math.random() * window.innerHeight - 100;
+      const delay = Math.random() * 15;
+      const style = {
+        left: Math.random() * 100 + '%',
+        top: Math.random() * 100 + '%',
+        '--move-x': moveX + 'px',
+        '--move-y': moveY + 'px',
+        animationDelay: delay + 's'
+      };
+      particles.push(<div key={i} className="particle" style={style} />);
+    }
+    return particles;
+  };
+
   return (
     <div className="App">
+      {/* Glowing Lines */}
+      <div className="glow-line"></div>
+      <div className="glow-line"></div>
+      <div className="glow-line"></div>
+      <div className="glow-line"></div>
+
+      {/* Floating Particles */}
+      <div className="particles">
+        {createParticles()}
+      </div>
+
       <Header 
         totalValue={getTotalPortfolioValue()}
         onRefresh={fetchCryptoData}
@@ -162,10 +222,15 @@ const App = () => {
           </div>
         )}
 
-        {loading && !selectedCrypto && (
+        {(loading || detailLoading) && (
           <div className="loading">
             <div className="spinner"></div>
-            <p>Memuat data cryptocurrency...</p>
+            <p>
+              {detailLoading 
+                ? 'Memuat detail cryptocurrency...' 
+                : 'Memuat data cryptocurrency...'}
+              {error && '\nMencoba mengambil data kembali...'}
+            </p>
           </div>
         )}
 
@@ -197,7 +262,7 @@ const App = () => {
       </main>
 
       <footer className="footer">
-        <p>© 2025 Cryptocurrency Tracker - UTS Pengembangan Aplikasi Web</p>
+        <p>© 2025 Cryptocurrency Tracker - UTS Pemrograman Aplikasi Web</p>
         <p>NIM: 123140002 | Data from CoinGecko API</p>
       </footer>
     </div>

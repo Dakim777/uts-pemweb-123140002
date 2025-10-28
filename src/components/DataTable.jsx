@@ -88,6 +88,7 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
 
   const hasPortfolio = Object.values(portfolio).some(amount => amount > 0);
 
+
   return (
     <section className="data-section">
       {/* === Section Header === */}
@@ -143,6 +144,7 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
 
                   <td className="price-cell">{formatCurrency(crypto.current_price)}</td>
 
+
                   <td className={`change-cell ${crypto.price_change_percentage_24h >= 0 ? 'positive' : 'negative'}`}>
                     {crypto.price_change_percentage_24h >= 0 ? '▲' : '▼'}{' '}
                     {Math.abs(crypto.price_change_percentage_24h).toFixed(2)}%
@@ -164,14 +166,13 @@ const DataTable = ({ cryptoData, onSelectCrypto, portfolio, onUpdatePortfolio, o
                     </div>
                   </td>
 
-
                   <td className="action-cell">
                     <button
                       onClick={() => onSelectCrypto(crypto.id)}
                       className="detail-btn"
                       title={`Lihat detail ${crypto.name}`}
                     >
-                      <span style={{fontSize: '1.2em', display: 'inline-block'}}>�</span>
+                      <span>📈</span>
                       Detail
                     </button>
                   </td>

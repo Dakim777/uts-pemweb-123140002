@@ -1,5 +1,17 @@
 .action-cell {
   text-align: center;
+  padding: 0.5rem !important;
+  white-space: nowrap;
+}
+
+.detail-btn {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.detail-btn span {
+  margin-right: 0.3rem;
 }
 .detail-btn {
   background: linear-gradient(90deg, var(--primary), var(--secondary));
@@ -23,30 +35,35 @@
 }
 /* === Portfolio Input Styling === */
 .portfolio-cell {
-  height: 64px;
-  padding: 0 !important;
+  padding: 0.5rem !important;
 }
+
 .portfolio-flex {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  height: 100%;
+  gap: 0.5rem;
   width: 100%;
 }
-.portfolio-input {
-  margin: auto 0;
-}
+
 .portfolio-input {
   background: rgba(34,211,238,0.08);
   color: var(--text-main);
   border: 1.5px solid var(--secondary);
   border-radius: 8px;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  width: 110px;
-  transition: border 0.2s, box-shadow 0.2s;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  width: 80px;
+  transition: all 0.2s ease;
   outline: none;
+}
+
+.portfolio-value {
+  font-size: 0.85rem;
+  color: var(--success);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .portfolio-input:focus {
   border-color: var(--primary);
@@ -135,56 +152,272 @@
     max-height: 60px;
   }
 }
-/* === Detail Modal Header Integration === */
+/* === Detail Card Sections === */
 .detail-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.2rem;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .detail-title {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.2rem;
+  gap: 0.4rem;
 }
+
 .detail-title h2 {
-  font-size: 1.3rem;
-  color: var(--primary);
-  margin-bottom: 0.1rem;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.02em;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
+
 .detail-symbol {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--secondary);
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(34, 211, 238, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(34, 211, 238, 0.2);
 }
+
 .detail-rank {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-muted);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
+
+.detail-rank::before {
+  content: '🏆';
+  font-size: 1.1rem;
+}
+/* === Price Section === */
+.price-section {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.current-price {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.price-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.price-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #fff, #94a3b8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.price-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.price-change.positive {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.price-change.negative {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* === Chart Section === */
+.chart-section {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chart-section h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.chart-container {
+  margin-top: 1rem;
+  background: rgba(15, 23, 42, 0.4);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 @media (max-width: 600px) {
   .detail-header {
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
   }
   .detail-title {
     align-items: center;
+    text-align: center;
+  }
+  .price-value {
+    font-size: 2rem;
+  }
+  .chart-section {
+    padding: 1rem;
   }
 }
+/* === Portfolio Calculator === */
+.portfolio-calculator {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.portfolio-calculator h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.calculator-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.calculator-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.calculator-input label {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.calculator-field {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  color: var(--text-main);
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.calculator-field:focus {
+  outline: none;
+  border-color: var(--secondary);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.1);
+}
+
+.calculator-field::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.calculator-result {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 12px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.result-item span {
+  color: var(--text-muted);
+}
+
+.result-item strong {
+  color: #34d399;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
 /* === Coin Image in Detail Modal === */
 .detail-coin-image {
   display: block;
-  max-width: 80px;
-  max-height: 80px;
-  width: auto;
-  height: auto;
-  margin-right: 1rem;
-  margin-bottom: 0.5rem;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(59,130,246,0.15);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem;
+  border: 2px solid rgba(34, 211, 238, 0.3);
+  transition: all 0.3s ease;
+}
+
+.detail-coin-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.3);
 }
 /* ========== RESET & VARIABLES ========== */
 * {
@@ -208,33 +441,173 @@
 }
 
 /* ========== GLOBAL BODY ========== */
-body {
-  background: radial-gradient(circle at top left, #0b1120, #020617 90%);
+html, body {
+  background: #020617;
   color: var(--text-main);
   font-family: 'Inter', sans-serif;
-  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
   overflow-x: hidden;
+  perspective: 1000px;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  backface-visibility: hidden;
 }
 
-/* Layout utama column-drop */
+/* === Background Animation === */
 .App {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Simplified Background */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+  background: #020617;
+}
+
+/* Static Grid with Subtle Animation */
+.grid-overlay {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    linear-gradient(transparent 95%, rgba(59, 130, 246, 0.2)),
+    linear-gradient(90deg, transparent 95%, rgba(59, 130, 246, 0.2));
+  background-size: 50px 50px;
+  opacity: 0.1;
+  animation: subtleGridMove 20s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Subtle Gradient */
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 0%, 
+              rgba(59, 130, 246, 0.1) 0%, 
+              rgba(34, 211, 238, 0.05) 25%,
+              transparent 70%);
+  z-index: -1;
+}
+
+@keyframes subtleGridMove {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Remove particles and glow lines to reduce complexity */
+
+@keyframes particleFloat {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(var(--move-x, 100px), var(--move-y, 100px)) rotate(360deg);
+    opacity: 0;
+  }
 }
 
 /* =========================================================
    HEADER SECTION
    ========================================================= */
+/* Custom header style for originality */
 .header {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid var(--border-light);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  padding: 1.5rem 2rem;
+  background: rgba(15, 23, 42, 0.97);
+  border-bottom: 0;
+  box-shadow: 0 4px 15px rgba(34,211,238,0.18), 0 0 0 4px #22d3ee33;
+  padding: 1.5rem 2rem 1.7rem 2rem;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
+  animation: headerFadeIn 1s ease forwards;
+  border-radius: 0 0 32px 32px;
+  border-image: linear-gradient(90deg, #22d3ee 0%, #3b82f6 100%) 1;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.header::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(90deg, #22d3ee 0%, #3b82f6 100%);
+  border-radius: 0 0 32px 32px;
+  filter: blur(4px);
+  opacity: 0.7;
+  pointer-events: none;
+  z-index: 1;
+  animation: headerGlow 2.5s infinite alternate;
+}
+
+@keyframes headerGlow {
+  0% { opacity: 0.7; filter: blur(4px); }
+  100% { opacity: 1; filter: blur(8px); }
+}
+
+@keyframes headerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add hover effect to interactive elements */
+.header-content,
+.filter-section,
+.crypto-table,
+.portfolio-calculator,
+.market-stats,
+.chart-section {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.header-content:hover,
+.filter-section:hover,
+.crypto-table:hover,
+.portfolio-calculator:hover,
+.market-stats:hover,
+.chart-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(59, 130, 246, 0.2);
 }
 .header-content {
   max-width: 1300px;
@@ -284,10 +657,14 @@ body {
    MAIN CONTAINER
    ========================================================= */
 .container {
-  flex: 1;
+  flex: 1 0 auto;
+  width: 100%;
   max-width: 1300px;
   margin: 0 auto;
   padding: 2rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  min-height: 0; /* Prevents container from expanding unnecessarily */
 }
 
 /* =========================================================
@@ -369,15 +746,40 @@ body {
 /* =========================================================
    DATA TABLE SECTION
    ========================================================= */
+.table-wrapper {
+  background: rgba(15,23,42,0.8);
+  border-radius: 12px;
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow-glow);
+  overflow-x: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
 .crypto-table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 12px;
-  overflow: hidden;
-  background: rgba(15,23,42,0.8);
-  backdrop-filter: var(--glass-blur);
-  box-shadow: var(--shadow-glow);
+  table-layout: fixed;
 }
+
+/* Column widths */
+.crypto-table th,
+.crypto-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+
+.crypto-table th:nth-child(1) { width: 5%; }  /* Rank */
+.crypto-table th:nth-child(2) { width: 18%; } /* Coin */
+.crypto-table th:nth-child(3) { width: 13%; } /* Price */
+.crypto-table th:nth-child(4) { width: 10%; } /* 24h % */
+.crypto-table th:nth-child(5) { width: 18%; } /* Market Cap */
+.crypto-table th:nth-child(6) { width: 14%; } /* Portfolio */
+.crypto-table th:nth-child(7) { width: 10%; } /* Actions */
+
+
 .crypto-table thead {
   background: rgba(30,41,59,0.8);
 }
@@ -397,13 +799,55 @@ body {
   background: linear-gradient(90deg, rgba(59,130,246,0.1), rgba(34,211,238,0.1));
 }
 
+/* Coin column styling */
+.coin-cell {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.coin-info {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  max-width: 100%;
+}
+
+.coin-image {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.coin-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.coin-name {
+  font-weight: 500;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.coin-symbol {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
 /* =========================================================
    DETAIL MODAL
    ========================================================= */
 /* === Detail Modal Overlay === */
-/* === Detail Modal Overlay (improved) === */
+/* === Detail Modal Overlay === */
 .detail-overlay {
-  background: rgba(0,0,0,0.85);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -411,65 +855,303 @@ body {
   inset: 0;
   z-index: 2000;
   backdrop-filter: blur(8px);
-  overflow-y: auto;
-  padding: 6vh 2vw;
+  padding: 2vh 1rem;
 }
 
 /* === Detail Modal === */
-/* === Detail Modal (smaller, always visible close) === */
 .detail-modal {
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 18px;
-  padding: 1.2rem 0.7rem 1.2rem 0.7rem;
-  box-shadow: 0 0 35px rgba(59,130,246,0.3);
-  max-width: 340px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 1.5rem;
   width: 100%;
-  min-width: 0;
-  animation: fadeInUp 0.4s ease forwards;
+  max-width: 480px;
+  max-height: 96vh;
+  overflow-y: auto;
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.25),
+              0 0 15px rgba(34, 211, 238, 0.15);
+  animation: modalFadeIn 0.3s ease forwards;
   position: relative;
-  margin: 0 auto;
+  margin: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--bg-dark);
+}
+
+.detail-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.detail-modal::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+  border-radius: 4px;
+}
+
+.detail-modal::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 4px;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* === Close Button === */
-/* === Close Button (always visible) === */
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(59,130,246,0.25);
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.1);
   border: none;
-  color: #fff;
-  font-size: 1.5rem;
+  color: var(--text-main);
+  font-size: 1.2rem;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  box-shadow: 0 0 8px rgba(59,130,246,0.2);
-  transition: background 0.2s;
+  transition: all 0.2s ease;
   z-index: 10;
+  backdrop-filter: blur(4px);
 }
+
 .close-button:hover {
   background: var(--danger);
   color: #fff;
+  transform: rotate(90deg);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
 }
 
-/* === Responsive Modal === */
-@media (max-width: 600px) {
-  .detail-overlay {
-    padding: 8vh 2vw;
-    align-items: flex-start;
-  }
-  .detail-modal {
-    max-width: 98vw;
-    min-width: 0;
-    padding: 0.7rem 0.2rem 1.2rem 0.2rem;
-    margin-top: 8vh;
+/* === Responsive Styles === */
+@media (max-width: 1400px) {
+  .container {
+    max-width: 95%;
+    padding: 1.5rem;
   }
 }
+
+@media (max-width: 992px) {
+  .container {
+    max-width: 100%;
+    padding: 1rem;
+  }
+  
+  .header-content {
+    padding: 0 1rem;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .detail-overlay {
+    padding: 0;
+  }
+  
+  .detail-modal {
+    max-width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    padding: 1rem;
+  }
+  
+  .close-button {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .header {
+    padding: 1rem;
+  }
+  
+  .container {
+    padding: 0.5rem;
+  }
+  
+  .portfolio-calculator,
+  .market-stats,
+  .chart-section,
+  .description-section {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+}
+/* === Market Stats === */
+.market-stats {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.market-stats h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+
+.stat-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.1rem;
+  color: var(--text-main);
+  font-weight: 600;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* === Description Section === */
+.description-section {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.description-section h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.description-text {
+  color: var(--text-main);
+  line-height: 1.6;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.description-text a {
+  color: var(--secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.description-text a:hover {
+  color: var(--primary);
+}
+
+/* === Links Section === */
+.links-section {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.links-section h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.link-button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.link-button:hover {
+  background: rgba(34, 211, 238, 0.1);
+  border-color: var(--secondary);
+  transform: translateY(-2px);
+}
+
 @keyframes fadeInUp {
   from {opacity: 0; transform: translateY(40px);}
   to {opacity: 1; transform: translateY(0);}
+}
+
+/* Section Animations */
+.price-section,
+.chart-section,
+.portfolio-calculator,
+.market-stats,
+.description-section,
+.links-section {
+  animation: fadeIn 0.6s ease forwards;
+  opacity: 0;
+  animation-fill-mode: both;
+}
+
+.price-section { animation-delay: 0.1s; }
+.chart-section { animation-delay: 0.2s; }
+.portfolio-calculator { animation-delay: 0.3s; }
+.market-stats { animation-delay: 0.4s; }
+.description-section { animation-delay: 0.5s; }
+.links-section { animation-delay: 0.6s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* =========================================================
@@ -478,9 +1160,12 @@ body {
 .footer {
   text-align: center;
   color: var(--text-muted);
-  padding: 2rem 0;
+  padding: 1.5rem 0;
+  margin-top: auto;
+  width: 100%;
   border-top: 1px solid rgba(255,255,255,0.05);
   background: rgba(15,23,42,0.8);
+  box-sizing: border-box;
 }
 
 /* =========================================================
