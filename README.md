@@ -1,70 +1,101 @@
-# Getting Started with Create React App
+# Aplikasi Pelacak Harga Cryptocurrency
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Identitas
+- **Nama:** Muhammad Daffa Hakim Matondang
+- **NIM:** 123140002
 
-## Available Scripts
+## Deskripsi Project
+Aplikasi web yang dibangun untuk UTS mata kuliah Pemrograman Web. Aplikasi ini berfungsi untuk memantau harga cryptocurrency secara real-time dengan fitur-fitur sebagai berikut:
+- Menampilkan daftar 50 cryptocurrency teratas berdasarkan kapitalisasi pasar
+- Penyaringan berdasarkan rentang harga dengan filter yang sudah disiapkan
+- Informasi detail lengkap untuk setiap cryptocurrency
+- Grafik pergerakan harga 7 hari terakhir menggunakan Recharts
+- Pelacakan portfolio dengan penyimpanan lokal
+- Tampilan responsif untuk perangkat mobile dan desktop
+- Animasi dan transisi halus untuk pengalaman pengguna yang lebih baik
 
-In the project directory, you can run:
+## Teknologi yang Digunakan
+- React.js untuk pengembangan antarmuka
+- API CoinGecko untuk data cryptocurrency
+- Recharts untuk visualisasi grafik
+- CSS3 untuk tampilan dan animasi
+- Local Storage untuk penyimpanan data portfolio
 
-### `npm start`
+## Cara Instalasi dan Menjalankan Aplikasi
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone repository ini
+```bash
+git clone https://github.com/Dakim777/uts-pemweb-123140002.git
+cd uts-pemweb-123140002
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. Install semua dependencies yang diperlukan
+```bash
+npm install
+```
 
-### `npm test`
+3. Jalankan aplikasi dalam mode pengembangan
+```bash
+npm start
+```
+Buka [http://localhost:3000](http://localhost:3000) di browser Anda untuk melihat aplikasi.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Untuk membuat versi production
+```bash
+npm run build
+```
+Perintah ini akan membuat versi production yang optimal di folder `build`.
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Tangkapan Layar Aplikasi
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Halaman Utama
+![Halaman Utama](/screenshots/main-page.png)
+- Daftar lengkap cryptocurrency dengan informasi terkini
+- Filter berdasarkan harga dan pelacakan portfolio
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Halaman Detail
+![Halaman Detail](/screenshots/detail-page.png)
+- Informasi rinci cryptocurrency
+- Grafik harga 7 hari terakhir
+- Kalkulator portfolio
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Tampilan Mobile
+![Tampilan Mobile](/screenshots/mobile-view.png)
+- Tampilan yang responsif untuk perangkat mobile
+- Navigasi dan penyaringan yang mudah digunakan
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Tautan Aplikasi
+🌐 [Demo Langsung](https://uts-pemweb-123140002.vercel.app/)
 
-## Learn More
+## Fitur Utama
+- [x] Pelacakan harga secara real-time
+- [x] Pengelolaan portfolio
+- [x] Penyaringan berdasarkan harga
+- [x] Grafik harga 7 hari
+- [x] Desain responsif
+- [x] Penyimpanan data lokal
+- [x] Animasi halus
+- [x] Penanganan error
+- [x] Status loading
+- [x] Penanganan batasan rate API
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Dependensi Utama
+```json
+{
+  "react": "^19.2.0",
+  "react-dom": "^19.2.0",
+  "react-scripts": "5.0.1",
+  "recharts": "^2.6.0"
+}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Referensi API
+Aplikasi ini memanfaatkan [API CoinGecko](https://www.coingecko.com/en/api) untuk mendapatkan data cryptocurrency.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Catatan Tambahan
+- Data diperbarui secara otomatis
+- Data portfolio disimpan di penyimpanan lokal browser
+- Dilengkapi mekanisme retry untuk panggilan API
+- Menggunakan React hooks untuk manajemen state
