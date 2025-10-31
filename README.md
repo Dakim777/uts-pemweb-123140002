@@ -52,19 +52,27 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### Halaman Utama
 ![Halaman Utama](/screenshots/main-page.png)
-- Daftar lengkap cryptocurrency dengan informasi terkini
-- Filter berdasarkan harga dan pelacakan portfolio
+- Tampilan tabel cryptocurrency dengan informasi market cap, harga, dan perubahan 24 jam
+- Filter harga yang mudah digunakan dengan preset rentang harga
+- Kolom portfolio untuk melacak investasi cryptocurrency
 
-### Halaman Detail
+### Halaman Detail (Informasi Utama)
 ![Halaman Detail](/screenshots/detail-page.png)
-- Informasi rinci cryptocurrency
-- Grafik harga 7 hari terakhir
-- Kalkulator portfolio
+- Header dengan logo dan nama cryptocurrency
+- Informasi harga terkini dan perubahan 24 jam
+- Grafik interaktif pergerakan harga 7 hari terakhir
+
+### Halaman Detail (Informasi Tambahan)
+![Halaman Detail Tambahan](/screenshots/detail-page2.png)
+- Statistik market lengkap (Market Cap, Volume, Supply)
+- Kalkulator portfolio untuk menghitung nilai investasi
+- Tautan ke sumber informasi resmi
 
 ### Tampilan Mobile
 ![Tampilan Mobile](/screenshots/mobile-view.png)
-- Tampilan yang responsif untuk perangkat mobile
-- Navigasi dan penyaringan yang mudah digunakan
+- Desain responsif yang optimal untuk perangkat mobile
+- Tata letak yang dioptimalkan untuk layar kecil
+- Kemudahan navigasi dan interaksi di perangkat mobile
 
 ## Tautan Aplikasi
 🌐 [Demo Langsung](https://uts-pemweb-123140002.vercel.app/)
